@@ -7,30 +7,48 @@ import { CircuitLines, HexagonPattern, WireframeSphere, GlowingOrb, TechGrid, Ne
 
 export function StatsSection() {
   return (
-    <section className="py-20 border-y border-white/5 bg-white/[0.02] relative overflow-hidden">
-      <TechGrid />
+    <section className="py-32 bg-[#050505] relative overflow-hidden border-y border-white/5">
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+        <TechGrid />
+      </div>
+      
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-8 mb-24">
           {STATS.map((stat, idx) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true }}
-              className="text-center"
+              className="text-center group"
             >
-              <div className="text-5xl font-bold font-heading text-brand mb-2">{stat.value}</div>
-              <div className="text-sm text-white/50 font-medium uppercase tracking-widest">{stat.label}</div>
+              <div className="text-7xl lg:text-8xl font-black font-heading text-brand mb-4 tracking-tighter transition-transform duration-500 group-hover:scale-110">
+                {stat.value}
+              </div>
+              <div className="text-[10px] lg:text-xs text-white/40 font-black uppercase tracking-[0.3em] max-w-[200px] mx-auto leading-relaxed">
+                {stat.label}
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Client Logos Placeholder */}
-        <div className="mt-20 flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">
-           {['Monash University', 'Red Rooster', 'JSDMedia', 'Saint-Gobain', 'Honda', 'Yankee Candle'].map(name => (
-             <span key={name} className="text-xl font-heading font-bold">{name}</span>
-           ))}
+        {/* Client Logos / Names */}
+        <div className="pt-24 border-t border-white/5">
+          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-10">
+            {['Monash University', 'Red Rooster', 'JSDMedia', 'Saint-Gobain', 'Honda', 'Yankee Candle'].map((name, idx) => (
+              <motion.span 
+                key={name} 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.5 + (idx * 0.1) }}
+                viewport={{ once: true }}
+                className="text-lg lg:text-xl font-heading font-black text-white/20 hover:text-white/60 transition-colors cursor-default"
+              >
+                {name}
+              </motion.span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -40,20 +58,43 @@ export function StatsSection() {
 export function ServicesSection() {
   return (
     <section id="services" className="py-40 bg-white relative overflow-hidden">
-      <TechGrid />
+      {/* Background Elements */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <TechGrid />
+      </div>
       <CircuitLines />
+      <GlowingOrb className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] bg-brand/5 opacity-40" />
+      
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-10 mb-24">
-          <div className="max-w-2xl">
-            <div className="text-brand text-xs font-black tracking-[0.5em] uppercase mb-6">Execution Engines</div>
-            <h2 className="text-4xl lg:text-5xl font-heading font-black leading-tight tracking-tighter text-gray-900">AI Engineering <br />for Every Scale</h2>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 mb-32">
+          <div className="max-w-3xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <div className="h-px w-12 bg-brand/50" />
+              <div className="text-brand text-xs font-black tracking-[0.6em] uppercase">Execution Engines</div>
+            </motion.div>
+            <h2 className="text-6xl lg:text-7xl font-heading font-black leading-[0.85] tracking-tighter text-gray-900">
+              AI Engineering <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-brand/80 to-brand/40">for Every Scale</span>
+            </h2>
           </div>
-          <p className="text-gray-500 max-w-sm text-lg leading-relaxed font-medium">
-            Deploying intelligent systems across mobile, web, and enterprise infrastructure.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:max-w-md"
+          >
+            <p className="text-gray-500 text-xl leading-relaxed font-medium border-l-2 border-brand/30 pl-10 italic">
+              "Deploying intelligent systems across mobile, web, and enterprise infrastructure — engineered for performance, security, and scalability."
+            </p>
+          </motion.div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
           {SERVICES.map((service, idx) => {
             const Icon = (Icons as any)[service.icon];
             return (
@@ -63,28 +104,51 @@ export function ServicesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 viewport={{ once: true }}
-                className="bg-gray-50 border border-gray-100 p-10 rounded-[3rem] hover:bg-gray-100 transition-all group relative overflow-hidden"
+                className="group relative"
               >
-                <div className="absolute top-0 right-0 p-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Icons.ArrowUpRight className="w-6 h-6 text-brand" />
-                </div>
-                
-                <div className="w-16 h-16 bg-brand/10 rounded-2xl flex items-center justify-center mb-10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                  <Icon className="w-8 h-8 text-brand" />
-                </div>
-                
-                <h3 className="text-3xl font-heading font-black mb-6 tracking-tight text-gray-900">{service.title}</h3>
-                <p className="text-gray-500 text-sm mb-10 leading-relaxed font-medium">
-                  {service.description}
-                </p>
-                
-                <div className="space-y-4">
-                  {service.points.map(point => (
-                    <div key={point} className="flex items-center gap-4 text-xs font-bold text-gray-600 group-hover:text-gray-900 transition-colors">
-                      <div className="w-1.5 h-1.5 bg-brand rounded-full shadow-[0_0_8px_rgba(249,115,22,0.5)]" />
-                      {point}
+                {/* Advanced Card Design */}
+                <div className="h-full bg-gray-50 border border-gray-100 p-12 rounded-[3.5rem] transition-all duration-700 hover:bg-white hover:border-brand/20 hover:shadow-[0_40px_100px_-20px_rgba(0,0,0,0.08)] flex flex-col relative overflow-hidden">
+                  
+                  {/* Decorative Elements */}
+                  <div className="absolute -right-4 -top-4 w-32 h-32 bg-brand/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  
+                  <div className="flex items-center justify-between mb-12">
+                    <div className="w-20 h-20 bg-white rounded-[1.75rem] flex items-center justify-center border border-gray-100 group-hover:border-brand/20 transition-all duration-500 shadow-sm group-hover:shadow-[0_20px_40px_rgba(249,115,22,0.15)] group-hover:rotate-6 group-hover:scale-110">
+                      <Icon className="w-10 h-10 text-brand" />
                     </div>
-                  ))}
+                    <div className="flex flex-col items-end">
+                      <div className="text-[10px] font-black text-gray-300 uppercase tracking-[0.3em]">Module_{ (idx + 1).toString().padStart(2, '0') }</div>
+                      <div className="w-8 h-1 bg-gray-100 mt-2 group-hover:w-full group-hover:bg-brand/30 transition-all duration-500" />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-3xl font-heading font-black mb-8 tracking-tight text-gray-900 leading-[1.1] group-hover:text-brand transition-colors">
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-gray-500 text-sm mb-12 leading-relaxed font-medium flex-grow">
+                    {service.description}
+                  </p>
+                  
+                  <div className="grid grid-cols-1 gap-4 pt-10 border-t border-gray-100">
+                    {service.points.map((point, pIdx) => (
+                      <motion.div 
+                        key={point} 
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ delay: (idx * 0.1) + (pIdx * 0.05) }}
+                        className="flex items-center gap-4 text-xs font-bold text-gray-400 group-hover:text-gray-600 transition-colors"
+                      >
+                        <div className="w-2 h-2 bg-gray-200 rounded-full group-hover:bg-brand transition-colors shadow-sm" />
+                        {point}
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Corner Accent */}
+                  <div className="absolute bottom-0 right-0 p-12 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-700 pointer-events-none">
+                    <Icon size={120} className="text-brand" />
+                  </div>
                 </div>
               </motion.div>
             );
@@ -99,147 +163,301 @@ export function ProcessSection() {
   const [activePhase, setActivePhase] = useState(0);
 
   return (
-    <section id="methodology" className="py-40 bg-bg-dark relative overflow-hidden">
-      <HexagonPattern />
-      <GlowingOrb className="top-1/4 right-0 w-[40%] h-[40%] bg-brand/5" />
+    <section id="methodology" className="py-40 bg-[#050505] relative overflow-hidden">
+      <TechGrid />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand/5 to-[#050505]" />
+      <GlowingOrb className="top-1/4 right-[-10%] w-[50%] h-[50%] bg-brand/10 opacity-20" />
+      
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        {/* Header */}
-        <div className="flex justify-between items-end mb-20">
-          <div>
-            <div className="inline-block px-4 py-1.5 bg-brand/20 text-brand rounded-md text-[10px] font-black uppercase tracking-widest mb-6">
-              Our Unique Workflow
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-heading font-black tracking-tighter">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 mb-32">
+          <div className="max-w-3xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <div className="h-px w-12 bg-brand/50" />
+              <div className="text-brand text-xs font-black tracking-[0.6em] uppercase">Methodology</div>
+            </motion.div>
+            <h2 className="text-6xl lg:text-7xl font-heading font-black leading-[0.85] tracking-tighter text-white">
               From Discovery To <br />
-              <span className="text-brand">AI Production</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-brand/80 to-brand/40">AI Production</span>
             </h2>
           </div>
-          <div className="hidden md:block">
-            <div className="w-16 h-16 border border-white/10 rounded-full flex items-center justify-center group hover:border-brand transition-colors cursor-pointer">
-              <Icons.ArrowUpRight className="w-6 h-6 text-white group-hover:text-brand transition-colors" />
-            </div>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:max-w-md"
+          >
+            <p className="text-white/40 text-xl leading-relaxed font-medium border-l-2 border-brand/30 pl-10 italic">
+              "Our unique workflow bridges the gap between raw data and production-ready AI. We don't just build models; we engineer scalable intelligence."
+            </p>
+          </motion.div>
         </div>
 
-        {/* Main Split Layout */}
-        <div className="grid lg:grid-cols-12 gap-20">
-          {/* Left: List of Phases */}
-          <div className="lg:col-span-5 flex flex-col">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
+          {/* Enhanced Phase Navigation */}
+          <div className="lg:col-span-5 space-y-4">
             {PROCESS.map((phase, idx) => (
-              <div
+              <motion.div
                 key={phase.phase}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                viewport={{ once: true }}
                 onMouseEnter={() => setActivePhase(idx)}
                 className={cn(
-                  "py-10 border-t border-white/5 group cursor-pointer transition-all",
-                  activePhase === idx ? "opacity-100" : "opacity-40 hover:opacity-70"
+                  "relative p-8 rounded-[2rem] border transition-all duration-500 cursor-pointer group overflow-hidden",
+                  activePhase === idx 
+                    ? "bg-white/[0.04] border-brand/40 shadow-2xl shadow-brand/5" 
+                    : "bg-transparent border-white/5 hover:border-white/10"
                 )}
               >
-                <div className="flex justify-between items-start gap-8">
+                {activePhase === idx && (
+                  <motion.div 
+                    layoutId="active-phase-bg"
+                    className="absolute inset-0 bg-gradient-to-r from-brand/5 to-transparent z-0"
+                  />
+                )}
+                
+                <div className="relative z-10 flex items-start gap-8">
+                  <div className={cn(
+                    "w-12 h-12 rounded-xl flex items-center justify-center font-black text-lg transition-all duration-500",
+                    activePhase === idx ? "bg-brand text-white shadow-lg shadow-brand/20" : "bg-white/5 text-white/20 group-hover:text-white/40"
+                  )}>
+                    {idx + 1}
+                  </div>
+                  
                   <div className="flex-grow">
-                    <h3 className="text-2xl font-heading font-black mb-4 tracking-tight group-hover:text-white transition-colors">
+                    <h3 className={cn(
+                      "text-2xl font-heading font-black mb-4 tracking-tight transition-colors",
+                      activePhase === idx ? "text-white" : "text-white/30 group-hover:text-white/60"
+                    )}>
                       {phase.title}
                     </h3>
-                    <p className="text-sm text-white/40 leading-relaxed font-medium max-w-sm">
-                      {phase.description}
-                    </p>
+                    <AnimatePresence>
+                      {activePhase === idx && (
+                        <motion.p
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          className="text-sm text-white/40 leading-relaxed font-medium max-w-sm"
+                        >
+                          {phase.description}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="text-3xl font-heading font-black text-white/10 group-hover:text-brand/40 transition-colors">
-                    {phase.phase.split(' ')[1]}
-                  </div>
+
+                  <div className={cn(
+                    "w-1.5 h-1.5 rounded-full transition-all mt-3",
+                    activePhase === idx ? "bg-brand scale-150 shadow-[0_0_8px_rgba(249,115,22,1)]" : "bg-white/10"
+                  )} />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          {/* Right: Featured Visual */}
-          <div className="lg:col-span-7 relative">
-            <div className="sticky top-40 aspect-[4/5] lg:aspect-auto lg:h-[800px] bg-white/[0.02] border border-white/10 rounded-[2rem] overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-transparent opacity-50" />
+          {/* High-Tech Visual Display Area */}
+          <div className="lg:col-span-7">
+            <div className="bg-[#0A0A0A] border border-white/10 rounded-[3rem] p-8 md:p-16 relative overflow-hidden h-full min-h-[600px] backdrop-blur-xl shadow-2xl flex items-center justify-center">
+              {/* Animated Background Grids */}
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none">
+                <TechGrid />
+              </div>
               
-              {/* Dynamic Content based on active phase */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activePhase}
-                  initial={{ opacity: 0, scale: 1.1 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 flex items-center justify-center p-20"
-                >
-                  <div className="relative w-full h-full border border-white/5 rounded-3xl overflow-hidden glass shadow-2xl">
-                     <div className="absolute inset-0 bg-brand/5 backdrop-blur-3xl" />
-                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-12">
-                        <div className="text-brand/20 font-black text-[12rem] leading-none select-none mb-4">
-                          {PROCESS[activePhase].phase.split(' ')[1]}
-                        </div>
-                        <h4 className="text-3xl font-heading font-black mb-6">{PROCESS[activePhase].title}</h4>
-                        <div className="w-12 h-1 bg-brand rounded-full mb-8 shadow-[0_0_15px_rgba(249,115,22,0.8)]" />
-                        <div className="flex gap-4">
-                           <div className="w-3 h-3 rounded-full bg-white/20" />
-                           <div className="w-3 h-3 rounded-full bg-white/10" />
-                           <div className="w-3 h-3 rounded-full bg-white/5" />
-                        </div>
-                     </div>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
+              {/* HUD Elements */}
+              <div className="absolute top-12 left-12 flex gap-4">
+                <div className="px-3 py-1 border border-white/5 bg-white/[0.02] rounded-full text-[10px] font-mono text-white/20 uppercase tracking-widest">
+                  Process_Core::v4.0
+                </div>
+                <div className="px-3 py-1 border border-brand/20 bg-brand/5 rounded-full text-[10px] font-mono text-brand animate-pulse uppercase tracking-widest">
+                  Live Execution
+                </div>
+              </div>
 
-              {/* Decorative Elements */}
-              <div className="absolute bottom-10 right-10 flex flex-col items-end">
-                <div className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] mb-2">Phase Control</div>
+              <div className="absolute bottom-12 left-12 right-12 flex items-center justify-between border-t border-white/5 pt-8">
                 <div className="flex gap-2">
                   {PROCESS.map((_, i) => (
                     <div 
                       key={i} 
                       className={cn(
-                        "w-2 h-2 rounded-full transition-all duration-300",
-                        activePhase === i ? "w-8 bg-brand" : "bg-white/20"
+                        "h-1 rounded-full transition-all duration-500",
+                        activePhase === i ? "w-12 bg-brand shadow-[0_0_10px_rgba(249,115,22,0.5)]" : "w-4 bg-white/10"
                       )} 
                     />
                   ))}
                 </div>
+                <div className="text-[10px] font-mono text-white/10 uppercase tracking-[0.3em]">
+                  Phase_{ (activePhase + 1).toString().padStart(2, '0') } // Complete
+                </div>
               </div>
+
+              {/* Dynamic Centerpiece */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activePhase}
+                  initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 1.2, rotate: 5 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-10 w-full max-w-lg aspect-square flex items-center justify-center"
+                >
+                  {/* Decorative Rings */}
+                  <div className="absolute inset-0 border border-white/5 rounded-full animate-spin-slow" />
+                  <div className="absolute inset-8 border border-brand/10 rounded-full animate-reverse-spin-slow opacity-50" />
+                  
+                  <div className="relative text-center">
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      className="text-brand/5 font-black text-[20rem] leading-none select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                    >
+                      {(activePhase + 1).toString().padStart(2, '0')}
+                    </motion.div>
+                    
+                    <div className="relative z-20">
+                      <h4 className="text-4xl lg:text-6xl font-heading font-black mb-8 tracking-tighter text-white shadow-2xl">
+                        {PROCESS[activePhase].title}
+                      </h4>
+                      <div className="flex flex-col items-center gap-6">
+                        <div className="w-24 h-1 bg-brand rounded-full shadow-[0_0_20px_rgba(249,115,22,1)]" />
+                        <div className="flex gap-3">
+                          {[1, 2, 3, 4, 5].map(i => (
+                            <motion.div 
+                              key={i}
+                              animate={{ 
+                                scale: activePhase === i-1 ? [1, 1.5, 1] : 1,
+                                opacity: activePhase === i-1 ? 1 : 0.2
+                              }}
+                              className={cn(
+                                "w-2 h-2 rounded-full",
+                                activePhase === i-1 ? "bg-brand" : "bg-white"
+                              )}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Corner Symbols */}
+              <Icons.Target className="absolute top-12 right-12 text-white/5" size={32} />
+              <Icons.Zap className="absolute bottom-32 right-12 text-brand/20 animate-pulse" size={40} />
             </div>
           </div>
         </div>
 
-        {/* Footer Meta */}
-        <div className="mt-20 pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-white/40 text-sm font-medium max-w-md">
-            Our methodology is designed for rapid iteration while maintaining strict engineering standards.
-          </p>
-          <button className="bg-brand text-white px-10 py-4 rounded-full font-black text-sm hover:scale-105 transition-all brand-glow">
-            View Detailed Methodology
+        {/* Dynamic Methodology Note */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-12"
+        >
+          <div className="flex items-center gap-6">
+            <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center">
+              <Icons.Info size={20} className="text-brand" />
+            </div>
+            <p className="text-white/40 text-lg font-medium max-w-xl italic">
+              "Our methodology is engineered for hyper-speed iteration while maintaining strict architectural excellence. Every phase is managed through our proprietary local hubs in Sydney and London."
+            </p>
+          </div>
+          <button className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black rounded-2xl hover:bg-brand hover:border-brand hover:shadow-2xl transition-all duration-300 flex items-center gap-3">
+            Deep Dive Into Our Workflow <Icons.ArrowRight size={20} />
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
 
 export function CapabilitiesSection() {
+  const capabilityItems = [
+    { name: 'LLM Fine-Tuning & Prompt Engineering', icon: Icons.Brain, color: 'text-blue-500' },
+    { name: 'End-to-End MLOps & ModelOps', icon: Icons.Settings2, color: 'text-purple-500' },
+    { name: 'Production-Grade ML Pipelines', icon: Icons.Activity, color: 'text-green-500' },
+    { name: 'NLP Stack Development', icon: Icons.MessageSquare, color: 'text-orange-500' },
+    { name: 'Computer Vision Systems', icon: Icons.Eye, color: 'text-red-500' },
+    { name: 'Synthetic & Augmented Data', icon: Icons.Layers, color: 'text-indigo-500' },
+    { name: 'AI-Native Application Architecture', icon: Icons.Cpu, color: 'text-cyan-500' },
+    { name: 'Inference Serving & Latency Tuning', icon: Icons.Zap, color: 'text-yellow-500' },
+    { name: 'Secure DataOps & Compliance', icon: Icons.ShieldCheck, color: 'text-emerald-500' },
+    { name: 'Monitoring, Observability & Tuning', icon: Icons.LineChart, color: 'text-pink-500' },
+  ];
+
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
-      <TechGrid />
-      <WireframeSphere className="top-20 right-20 w-64 h-64 opacity-5" />
+    <section className="py-40 bg-white relative overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <TechGrid />
+      </div>
+      <WireframeSphere className="top-20 right-20 w-96 h-96 opacity-5" />
+      
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-20">
-          <div>
-            <div className="text-brand text-xs font-bold tracking-[0.3em] uppercase mb-4">Core AI Capabilities</div>
-            <h2 className="text-4xl lg:text-5xl font-heading font-bold text-gray-900">What Our AI Engineers Build</h2>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 mb-32">
+          <div className="max-w-3xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <div className="h-px w-12 bg-brand/50" />
+              <div className="text-brand text-xs font-black tracking-[0.6em] uppercase">Core AI Capabilities</div>
+            </motion.div>
+            <h2 className="text-6xl lg:text-7xl font-heading font-black leading-[0.85] tracking-tighter text-gray-900">
+              What Our AI <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-brand/80 to-brand/40">Engineers Build</span>
+            </h2>
           </div>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            Deep specialisation across the full AI/ML stack — from foundation model fine-tuning to production-grade MLOps infrastructure.
-          </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:max-w-md"
+          >
+            <p className="text-gray-500 text-xl leading-relaxed font-medium border-l-2 border-brand/30 pl-10 italic">
+              "Deep specialisation across the full AI/ML stack — from foundation model fine-tuning to production-grade MLOps infrastructure."
+            </p>
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {CAPABILITIES.map((cap) => (
-            <div key={cap} className="bg-gray-50 border border-gray-100 hover:border-brand/20 p-6 rounded-2xl flex items-center justify-between group transition-all">
-              <span className="font-medium text-gray-800">{cap}</span>
-              <Icons.ArrowUpRight className="w-4 h-4 text-gray-300 group-hover:text-brand transition-colors" />
-            </div>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {capabilityItems.map((cap, idx) => {
+            const Icon = cap.icon;
+            return (
+              <motion.div
+                key={cap.name}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                className="group relative"
+              >
+                <div className="h-full bg-gray-50 border border-gray-100 p-8 rounded-[2rem] flex flex-col items-center text-center hover:bg-white hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/5 transition-all duration-500 group-hover:-translate-y-2">
+                  <div className={cn(
+                    "w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-8 border border-gray-100 group-hover:border-brand/20 transition-all duration-500 shadow-sm group-hover:shadow-brand/10",
+                    cap.color
+                  )}>
+                    <Icon className="w-8 h-8" />
+                  </div>
+                  <h4 className="text-lg font-black font-heading text-gray-900 leading-tight mb-4 tracking-tight group-hover:text-brand transition-colors">
+                    {cap.name}
+                  </h4>
+                  <div className="mt-auto pt-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Icons.ArrowUpRight className="w-5 h-5 text-brand" />
+                  </div>
+                </div>
+                
+                {/* Decorative scanning line on hover */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-brand group-hover:w-full transition-all duration-500 rounded-full" />
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -251,14 +469,13 @@ export function AIServicesSection() {
   const activeService = AI_ENGINEERING_SERVICES.find(s => s.id === activeTab)!;
 
   return (
-    <section className="py-40 relative overflow-hidden bg-[#050505]">
+    <section id="services" className="py-40 relative overflow-hidden bg-[#050505]">
       <TechGrid />
-      <NeuralMesh />
-      <GlowingOrb className="top-0 right-[-10%] w-[70%] h-[70%] bg-brand/10 opacity-30" />
-      <GlowingOrb className="bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand/20 opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-brand/5 to-[#050505]" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 mb-32">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 mb-24">
           <div className="max-w-3xl">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
@@ -286,249 +503,151 @@ export function AIServicesSection() {
           </motion.div>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-          {/* Navigation - High Tech Sidebar */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="space-y-3">
-              {AI_ENGINEERING_SERVICES.map((service, idx) => (
-                <button
-                  key={service.id}
-                  onClick={() => setActiveTab(service.id)}
-                  className={cn(
-                    "w-full text-left p-6 rounded-2xl transition-all relative group overflow-hidden border",
-                    activeTab === service.id 
-                      ? "bg-white/[0.05] border-brand/40 shadow-[0_0_30px_rgba(249,115,22,0.1)]" 
-                      : "bg-transparent border-white/5 hover:border-white/20 hover:bg-white/[0.02]"
-                  )}
-                >
-                  {/* Scanning line for active item */}
-                  {activeTab === service.id && (
-                    <motion.div 
-                      layoutId="scanning-line"
-                      className="absolute inset-0 z-0"
-                    >
-                      <motion.div 
-                        animate={{ top: ['-100%', '200%'] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-x-0 h-[100%] bg-gradient-to-b from-transparent via-brand/10 to-transparent pointer-events-none"
-                      />
-                    </motion.div>
-                  )}
-                  
-                  <div className="relative z-10 flex items-center justify-between">
-                    <div className="flex items-center gap-5">
-                      <div className={cn(
-                        "w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500",
-                        activeTab === service.id 
-                          ? "bg-brand text-white shadow-[0_0_20px_rgba(249,115,22,0.5)] rotate-0" 
-                          : "bg-white/5 text-white/30 group-hover:text-white/60 -rotate-12"
-                      )}>
-                        <Icons.Cpu size={22} />
-                      </div>
-                      <div>
-                        <div className={cn(
-                          "text-[9px] font-black uppercase tracking-[0.3em] mb-1 transition-colors",
-                          activeTab === service.id ? "text-brand" : "text-white/20"
-                        )}>
-                          Phase {String(idx + 1).padStart(2, '0')}
-                        </div>
-                        <h4 className={cn(
-                          "text-xl font-black font-heading transition-colors",
-                          activeTab === service.id ? "text-white" : "text-white/40 group-hover:text-white/70"
-                        )}>
-                          {service.tabLabel}
-                        </h4>
-                      </div>
-                    </div>
-                    
-                    <div className={cn(
-                      "transition-all duration-500",
-                      activeTab === service.id ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
-                    )}>
-                      <Icons.ChevronRight className="text-brand w-5 h-5" />
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-            
-            {/* Visual Decorative Box */}
-            <div className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] relative overflow-hidden group hidden lg:block">
-              <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-10 transition-opacity">
-                <TechGrid />
+        {/* Horizontal Navigation */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
+          {AI_ENGINEERING_SERVICES.map((service, idx) => (
+            <button
+              key={service.id}
+              onClick={() => setActiveTab(service.id)}
+              className={cn(
+                "group relative p-6 rounded-[2rem] border transition-all duration-500 flex flex-col items-start gap-4 overflow-hidden",
+                activeTab === service.id 
+                  ? "bg-white/[0.05] border-brand shadow-[0_0_40px_rgba(249,115,22,0.15)]" 
+                  : "bg-white/[0.02] border-white/5 hover:border-white/20 hover:bg-white/[0.04]"
+              )}
+            >
+              <div className={cn(
+                "w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500",
+                activeTab === service.id ? "bg-brand text-white" : "bg-white/5 text-white/20 group-hover:text-white/40"
+              )}>
+                <Icons.Cpu size={20} />
               </div>
+              <div className="text-left">
+                <div className={cn(
+                  "text-[9px] font-black uppercase tracking-[0.2em] mb-1",
+                  activeTab === service.id ? "text-brand" : "text-white/20"
+                )}>
+                  Phase {String(idx + 1).padStart(2, '0')}
+                </div>
+                <h4 className={cn(
+                  "text-lg font-black font-heading tracking-tight",
+                  activeTab === service.id ? "text-white" : "text-white/40 group-hover:text-white/60"
+                )}>
+                  {service.tabLabel}
+                </h4>
+              </div>
+              {activeTab === service.id && (
+                <Icons.ChevronRight className="absolute top-1/2 -translate-y-1/2 right-6 text-brand w-5 h-5 animate-pulse" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Detailed Content Card */}
+        <div className="relative group">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#0A0A0A] border border-white/10 rounded-[3rem] p-12 md:p-20 relative overflow-hidden shadow-2xl backdrop-blur-3xl"
+            >
+              {/* Background HUD elements */}
+              <div className="absolute top-0 right-0 p-20 opacity-[0.03] pointer-events-none group-hover:scale-110 transition-transform duration-1000">
+                <div className="text-[20rem] font-black text-brand leading-none">0{AI_ENGINEERING_SERVICES.findIndex(s => s.id === activeTab) + 1}</div>
+              </div>
+
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">System Status: Optimal</span>
+                <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-brand/10 border border-brand/20 rounded-full text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-12">
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse" />
+                  {activeService.subheading}
                 </div>
-                <div className="space-y-4">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="flex gap-2">
-                      <div className="h-1 flex-1 bg-white/5 rounded-full overflow-hidden">
-                        <motion.div 
-                          animate={{ x: ['-100%', '100%'] }}
-                          transition={{ duration: 2 + i, repeat: Infinity, ease: "linear" }}
-                          className="h-full w-1/3 bg-brand/30"
-                        />
-                      </div>
+
+                <h3 className="text-5xl lg:text-7xl font-heading font-black mb-10 tracking-tighter text-white leading-[0.9] max-w-4xl">
+                  {activeService.title}
+                </h3>
+                
+                <p className="text-white/40 text-2xl leading-relaxed max-w-3xl font-medium mb-16">
+                  {activeService.description}
+                </p>
+
+                <div className="grid lg:grid-cols-12 gap-16">
+                  {/* Left Column: Capabilities */}
+                  <div className="lg:col-span-4 space-y-8">
+                    <div className="flex items-center gap-4">
+                      <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Core Capabilities</h5>
+                      <div className="flex-1 h-px bg-white/5" />
                     </div>
-                  ))}
+                    <div className="space-y-4">
+                      {activeService.capabilities.map((cap) => (
+                        <div key={cap} className="flex items-center gap-4 group/cap">
+                          <div className="w-6 h-6 rounded-md bg-brand/10 border border-brand/20 flex items-center justify-center group-hover/cap:bg-brand transition-colors">
+                            <Icons.Check size={12} className="text-brand group-hover/cap:text-white" />
+                          </div>
+                          <span className="text-white/70 font-bold group-hover/cap:text-white transition-colors">{cap}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Middle Column: Architectural Stack */}
+                  <div className="lg:col-span-4 space-y-8">
+                    <div className="flex items-center gap-4">
+                      <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Architectural Stack</h5>
+                      <div className="flex-1 h-px bg-white/5" />
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {activeService.techStack.map((tech) => (
+                        <span key={tech} className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-[10px] font-black text-white/40 uppercase tracking-widest hover:text-white hover:bg-brand/20 transition-all cursor-default">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Impact Metrics */}
+                  <div className="lg:col-span-4 space-y-8">
+                    <div className="flex items-center gap-4">
+                      <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Impact Metrics</h5>
+                      <div className="flex-1 h-px bg-white/5" />
+                    </div>
+                    <div className="space-y-4">
+                      {activeService.outcomes.map((metric) => (
+                        <div key={metric.label} className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 group/metric hover:bg-brand/5 transition-all">
+                          <div className="text-3xl font-black text-white group-hover/metric:text-brand transition-colors">{metric.value}</div>
+                          <div className="text-[10px] font-black text-white/30 uppercase tracking-widest mt-1">{metric.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Bar */}
+                <div className="mt-20 pt-12 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-10">
+                  <div className="flex items-center gap-6">
+                    <div className="flex -space-x-4">
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="w-12 h-12 rounded-full border-4 border-[#0A0A0A] overflow-hidden bg-white/10">
+                          <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=ai${i}`} alt="Engineer" className="w-full h-full object-cover" />
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <div className="text-white font-black">Expert AI Squad</div>
+                      <div className="text-white/40 text-[10px] uppercase tracking-widest font-black">Ready to initialize your project</div>
+                    </div>
+                  </div>
+                  <button className="group relative px-12 py-6 bg-brand text-white font-black text-lg rounded-2xl transition-all hover:shadow-[0_20px_40px_rgba(249,115,22,0.3)] hover:scale-105">
+                    <span className="flex items-center gap-3">
+                      Initiate Service <Icons.ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+                    </span>
+                  </button>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Main Display Area - High Tech Terminal */}
-          <div className="lg:col-span-8">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative"
-              >
-                {/* Main Control Panel */}
-                <div className="bg-[#0A0A0A] border border-white/10 rounded-[3rem] p-10 md:p-16 relative overflow-hidden backdrop-blur-3xl shadow-2xl">
-                  {/* Decorative corner accents */}
-                  <div className="absolute top-0 left-0 w-24 h-24 border-t border-l border-brand/40 rounded-tl-[3rem] pointer-events-none" />
-                  <div className="absolute bottom-0 right-0 w-24 h-24 border-b border-r border-brand/40 rounded-br-[3rem] pointer-events-none" />
-                  
-                  {/* Background tech visual */}
-                  <div className="absolute top-0 right-0 p-20 opacity-[0.05] pointer-events-none group-hover:scale-110 transition-transform duration-1000">
-                    <Icons.Binary className="w-96 h-96 text-brand" />
-                  </div>
-
-                  <div className="relative z-10 grid gap-16">
-                    {/* Header Section */}
-                    <div>
-                      <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-3 px-4 py-2 bg-brand/10 border border-brand/20 rounded-full text-brand text-[10px] font-black uppercase tracking-[0.3em] mb-10"
-                      >
-                        <Icons.Zap size={12} className="animate-pulse" />
-                        {activeService.subheading}
-                      </motion.div>
-                      <h3 className="text-5xl lg:text-7xl font-heading font-black mb-8 tracking-tighter text-white leading-[0.9]">
-                        {activeService.title}
-                      </h3>
-                      <p className="text-white/50 text-2xl leading-relaxed max-w-3xl font-medium">
-                        {activeService.description}
-                      </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-12 items-start">
-                      {/* Left: Capabilities */}
-                      <div className="space-y-8">
-                        <div className="flex items-center gap-4">
-                          <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Core Capabilities</h5>
-                          <div className="flex-1 h-px bg-white/5" />
-                        </div>
-                        <div className="grid gap-4">
-                          {activeService.capabilities.map((cap, i) => (
-                            <motion.div 
-                              key={cap}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.1 + i * 0.1 }}
-                              className="group/cap flex items-center gap-6 p-5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-brand/30 hover:bg-brand/5 transition-all cursor-default"
-                            >
-                              <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center group-hover/cap:bg-brand group-hover/cap:text-white transition-all">
-                                <Icons.Check size={18} className="text-brand group-hover/cap:text-white" />
-                              </div>
-                              <span className="text-lg font-bold text-white/70 group-hover/cap:text-white transition-colors">{cap}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Right: Architecture & Outcomes */}
-                      <div className="space-y-12">
-                        {/* Architecture */}
-                        <div className="space-y-8">
-                          <div className="flex items-center gap-4">
-                            <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Architectural Stack</h5>
-                            <div className="flex-1 h-px bg-white/5" />
-                          </div>
-                          <div className="flex flex-wrap gap-3">
-                            {activeService.techStack.map((tech, i) => (
-                              <motion.span 
-                                key={tech}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3 + i * 0.05 }}
-                                className="px-5 py-2.5 bg-white/[0.05] border border-white/10 rounded-xl text-xs font-black text-white/40 hover:text-white hover:bg-brand/20 hover:border-brand/40 transition-all cursor-default uppercase tracking-widest"
-                              >
-                                {tech}
-                              </motion.span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Outcomes */}
-                        <div className="space-y-8">
-                          <div className="flex items-center gap-4">
-                            <h5 className="text-[11px] font-black text-white/30 uppercase tracking-[0.4em]">Impact Metrics</h5>
-                            <div className="flex-1 h-px bg-white/5" />
-                          </div>
-                          <div className="grid grid-cols-1 gap-4">
-                            {activeService.outcomes.map((outcome, i) => (
-                              <motion.div 
-                                key={outcome.label}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.5 + i * 0.1 }}
-                                className="flex items-center justify-between p-6 rounded-3xl bg-brand/5 border border-brand/10 group/item hover:bg-brand/10 transition-all"
-                              >
-                                <div>
-                                  <div className="text-[9px] font-black text-white/30 uppercase tracking-widest mb-1">{outcome.label}</div>
-                                  <div className="text-3xl font-black text-white tracking-tighter group-hover/item:text-brand transition-colors">{outcome.value}</div>
-                                </div>
-                                <div className="w-12 h-12 rounded-full border border-brand/20 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-opacity">
-                                  <Icons.TrendingUp className="text-brand w-6 h-6" />
-                                </div>
-                              </motion.div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bottom Action Bar */}
-                    <div className="pt-12 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-10">
-                      <div className="flex items-center gap-6">
-                        <div className="flex -space-x-3">
-                          {[1, 2, 3, 4].map(i => (
-                            <div key={i} className="w-12 h-12 rounded-full border-4 border-[#0A0A0A] bg-white/10 flex items-center justify-center overflow-hidden">
-                              <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=ai${i}`} alt="Engineer" className="w-full h-full object-cover" />
-                            </div>
-                          ))}
-                        </div>
-                        <div>
-                          <div className="text-white font-bold">Expert AI Squad</div>
-                          <div className="text-white/40 text-xs">Ready to initialize your project</div>
-                        </div>
-                      </div>
-                      <button className="group relative w-full sm:w-auto px-12 py-6 bg-brand text-white font-black text-lg rounded-2xl transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(249,115,22,0.4)] overflow-hidden">
-                        <span className="relative z-10 flex items-center justify-center gap-3">
-                          Initialize Service <Icons.ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
-                        </span>
-                        <motion.div 
-                          initial={{ x: '-100%' }}
-                          whileHover={{ x: '100%' }}
-                          transition={{ duration: 0.6, ease: "easeInOut" }}
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
