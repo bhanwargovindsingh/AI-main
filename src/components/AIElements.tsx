@@ -1,5 +1,6 @@
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
+import { Hexagon, Cpu, Network, Database, Layers, Workflow, Bot, Share2, Binary } from 'lucide-react';
 
 export function CodeBackground() {
   const codeLines = [
@@ -70,98 +71,145 @@ export function NeuralMesh() {
   );
 }
 
-export function FloatingDataNode({ className }: { className?: string }) {
+export function DataFlowLines() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+      <svg className="w-full h-full">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <g key={i}>
+            <path
+              d={`M ${-100} ${100 + i * 150} Q ${400} ${50 + i * 150} ${1200} ${150 + i * 150}`}
+              fill="none"
+              stroke="#F97316"
+              strokeWidth="0.5"
+              strokeDasharray="4 4"
+              className="opacity-20"
+            />
+            <motion.circle
+              r="2"
+              fill="#F97316"
+              initial={{ offsetDistance: "0%" }}
+              animate={{ offsetDistance: "100%" }}
+              transition={{
+                duration: 5 + i * 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{ offsetPath: `path('M ${-100} ${100 + i * 150} Q ${400} ${50 + i * 150} ${1200} ${150 + i * 150}')` }}
+            />
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+export function TechGrid() {
+  return (
+    <div className="absolute inset-0 pointer-events-none opacity-[0.03] overflow-hidden">
+      <div 
+        className="absolute inset-0" 
+        style={{ 
+          backgroundImage: `linear-gradient(#F97316 1px, transparent 1px), linear-gradient(90deg, #F97316 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }} 
+      />
+    </div>
+  );
+}
+
+export function GlowingOrb({ className, color = "bg-brand" }: { className?: string, color?: string }) {
   return (
     <motion.div
       animate={{
-        y: [-10, 10, -10],
-        rotate: [0, 5, 0],
+        scale: [1, 1.2, 1],
+        opacity: [0.3, 0.5, 0.3],
       }}
       transition={{
-        duration: 5 + Math.random() * 3,
+        duration: 8,
         repeat: Infinity,
         ease: "easeInOut",
       }}
-      className={cn("absolute z-20", className)}
-    >
-      <div className="glass p-3 rounded-xl border border-brand/20 flex items-center gap-3 backdrop-blur-md">
-        <div className="w-2 h-2 bg-brand rounded-full animate-pulse" />
-        <div className="flex flex-col">
-          <span className="text-[8px] font-mono text-brand/60 uppercase tracking-widest leading-none mb-1">Processing</span>
-          <span className="text-[10px] font-black text-white/80 leading-none">NEURAL_TASK_821</span>
-        </div>
-      </div>
-    </motion.div>
+      className={cn("absolute rounded-full blur-[120px] pointer-events-none", color, className)}
+    />
   );
 }
-export function AIRobotElement() {
+
+export function HexagonPattern() {
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* Outer Glow */}
+    <div className="absolute inset-0 pointer-events-none opacity-[0.03] overflow-hidden">
+      <svg width="100%" height="100%">
+        <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
+          <path d="M25 0 L50 14.4 L50 43.4 L25 57.8 L0 43.4 L0 14.4 Z" fill="none" stroke="#F97316" strokeWidth="1" />
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#hexagons)" />
+      </svg>
+    </div>
+  );
+}
+
+export function CircuitLines() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
+      <svg className="w-full h-full" viewBox="0 0 1000 1000">
+        <path d="M0 200 H200 V400 H400 V200 H600 V600 H800 V400 H1000" fill="none" stroke="#F97316" strokeWidth="0.5" />
+        <path d="M0 800 H300 V600 H500 V800 H800 V1000" fill="none" stroke="#F97316" strokeWidth="0.5" />
+        <circle cx="200" cy="200" r="2" fill="#F97316" />
+        <circle cx="400" cy="400" r="2" fill="#F97316" />
+        <circle cx="600" cy="200" r="2" fill="#F97316" />
+        <circle cx="800" cy="600" r="2" fill="#F97316" />
+      </svg>
+    </div>
+  );
+}
+
+export function WireframeSphere({ className }: { className?: string }) {
+  return (
+    <div className={cn("absolute pointer-events-none opacity-20", className)}>
       <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-64 h-64 bg-brand/20 blur-3xl rounded-full"
-      />
-      
-      {/* Robot Core */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="relative z-10"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="w-full h-full relative"
       >
-        <div className="w-48 h-48 border-2 border-brand/30 rounded-[2rem] flex items-center justify-center p-8 glass relative overflow-hidden group">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent" />
-          
-          {/* Animated Scanning Line */}
-          <motion.div
-            animate={{ top: ['0%', '100%', '0%'] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            className="absolute left-0 right-0 h-[1px] bg-brand/50 shadow-[0_0_10px_rgba(249,115,22,0.8)] z-20"
-          />
+        <div className="absolute inset-0 border border-brand/40 rounded-full" />
+        <div className="absolute inset-0 border border-brand/20 rounded-full transform rotate-45" />
+        <div className="absolute inset-0 border border-brand/20 rounded-full transform -rotate-45" />
+        <div className="absolute inset-0 border border-brand/10 rounded-full transform rotate-90" />
+      </motion.div>
+    </div>
+  );
+}
 
-          {/* Abstract Robot Face / Circuitry */}
-          <div className="grid grid-cols-3 gap-2 w-full">
-            <div className="h-2 bg-brand/40 rounded-full" />
-            <div className="h-2 bg-brand/20 rounded-full" />
-            <div className="h-2 bg-brand/60 rounded-full" />
-            <div className="col-span-2 h-12 border border-brand/20 rounded-xl flex items-center justify-around px-4">
-              <div className="w-3 h-3 bg-brand rounded-full animate-pulse shadow-[0_0_8px_#F97316]" />
-              <div className="w-3 h-3 bg-brand rounded-full animate-pulse shadow-[0_0_8px_#F97316]" />
-            </div>
-            <div className="h-12 border border-brand/20 rounded-xl flex items-center justify-center">
-               <div className="w-4 h-1 bg-brand/40 rounded-full" />
-            </div>
-            <div className="col-span-3 h-4 bg-brand/10 border border-brand/10 rounded-lg" />
-          </div>
-        </div>
-
-        {/* Floating Particles */}
-        {Array.from({ length: 5 }).map((_, i) => (
+export function FloatingIcons() {
+  const icons = [Cpu, Network, Database, Layers, Workflow, Bot, Share2, Binary];
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {Array.from({ length: 12 }).map((_, i) => {
+        const Icon = icons[i % icons.length];
+        return (
           <motion.div
             key={i}
-            animate={{
-              y: [-10, 10, -10],
-              x: [-10, 10, -10],
-              opacity: [0, 1, 0],
+            initial={{ 
+              x: Math.random() * 100 + "%", 
+              y: Math.random() * 100 + "%",
+              opacity: 0 
             }}
-            transition={{
-              duration: 3 + i,
+            animate={{ 
+              y: [null, "-=40", "+=40"],
+              opacity: [0, 0.15, 0],
+              scale: [0.8, 1, 0.8]
+            }}
+            transition={{ 
+              duration: 10 + Math.random() * 10, 
               repeat: Infinity,
-              delay: i * 0.5,
+              ease: "easeInOut"
             }}
-            className="absolute w-1 h-1 bg-brand rounded-full"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </motion.div>
+            className="absolute text-brand"
+          >
+            <Icon size={24 + Math.random() * 20} strokeWidth={1} />
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

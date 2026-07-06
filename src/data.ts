@@ -211,7 +211,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     category: 'CONTENT INTELLIGENCE',
     title: 'Discursia — AI-Powered Content Platform',
-    description: 'AI content curation system with ML-driven trend analysis, proximity filtering, and engagement scoring across 200+ daily articles.',
+    description: 'AI content curation system with ML-driven trend analysis, profanity filtering, and engagement scoring across 2M+ daily articles.',
     stats: [
       { label: 'ENGAGEMENT LIFT', value: '40%' },
       { label: 'FILTER ACCURACY', value: '98.7%' },
@@ -229,6 +229,17 @@ export const CASE_STUDIES: CaseStudy[] = [
       { label: 'COMPLIANCE ISSUES', value: '0' }
     ],
     tags: ['PyTorch', 'MONAI', 'Docker', 'FHIR']
+  },
+  {
+    category: 'FINTECH ML',
+    title: 'Real-Time Fraud Detection System',
+    description: 'ML system processing 1M+ daily transactions with sub-100ms fraud scoring using gradient boosting, graph neural networks, and real-time feature stores.',
+    stats: [
+      { label: 'DETECTION RATE', value: '99.1%' },
+      { label: 'RESPONSE TIME', value: '<80ms' },
+      { label: 'ANNUAL SAVINGS', value: '$2.4M' }
+    ],
+    tags: ['XGBoost', 'Kafka', 'Neo4j', 'FastAPI']
   }
 ];
 

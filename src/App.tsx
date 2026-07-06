@@ -27,8 +27,8 @@ export default function App() {
           <CapabilitiesSection />
           <AIServicesSection />
           <TechStack />
-          <CaseStudiesSection />
           <IndustriesSection />
+          <CaseStudiesSection />
           <TrustSection />
           <FAQSection />
         </main>

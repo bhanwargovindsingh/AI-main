@@ -1,36 +1,22 @@
 import { motion } from 'motion/react';
 import { ChevronRight, PlayCircle, Zap, ShieldCheck, Activity, Cpu, Wifi, Box } from 'lucide-react';
 import * as Icons from 'lucide-react';
-import { CodeBackground, NeuralMesh, FloatingDataNode } from './AIElements';
+import { CodeBackground, NeuralMesh, TechGrid, GlowingOrb, FloatingIcons, DataFlowLines } from './AIElements';
 
 export function Hero() {
   return (
     <section className="relative pt-40 pb-32 overflow-hidden min-h-screen bg-bg-dark">
+      <TechGrid />
       <CodeBackground />
       <NeuralMesh />
+      <FloatingIcons />
+      <DataFlowLines />
       
       {/* Decorative Orbs */}
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[10%] -left-[10%] w-[50%] h-[50%] bg-brand/10 blur-[140px] rounded-full pointer-events-none" 
-      />
-      <motion.div 
-        animate={{ 
-          scale: [1, 1.3, 1],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-brand/5 blur-[140px] rounded-full pointer-events-none" 
-      />
+      <GlowingOrb className="top-[10%] -left-[10%] w-[50%] h-[50%] bg-brand/10" />
+      <GlowingOrb className="bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-brand/5" />
+      <GlowingOrb className="top-[40%] right-[20%] w-[30%] h-[30%] bg-brand/5" />
 
-      {/* Floating Data Nodes */}
-      <FloatingDataNode className="top-[20%] left-[5%] hidden xl:block" />
-      <FloatingDataNode className="top-[65%] left-[40%] hidden xl:block" />
-      <FloatingDataNode className="top-[15%] right-[30%] hidden xl:block" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-16 items-center">
@@ -46,18 +32,18 @@ export function Hero() {
               <div className="w-2 h-2 bg-brand rounded-full animate-pulse shadow-[0_0_8px_rgba(249,115,22,1)]" />
               <span className="text-brand text-[10px] font-black tracking-[0.3em] uppercase">Enterprise Agent Infrastructure</span>
               <div className="h-4 w-[1px] bg-brand/20 mx-2" />
-              <div className="flex items-center gap-1.5 text-[9px] font-bold text-white/40 uppercase">
+              <div className="flex items-center gap-1.5 text-[9px] font-bold text-white uppercase">
                 <Wifi className="w-3 h-3 text-brand/60" />
                 <span>Status: Optimal</span>
               </div>
             </div>
             
-            <h1 className="relative text-5xl lg:text-7xl font-heading font-black leading-[1.05] mb-8 tracking-tight">
+            <h1 className="relative text-5xl lg:text-6xl font-heading font-black leading-[1.05] mb-8 tracking-tight">
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="text-white/40 block mb-2 font-medium"
+                className="text-white block mb-2 font-medium"
               >
                 AI-Powered
               </motion.span>
@@ -76,7 +62,7 @@ export function Hero() {
               </span>
             </h1>
             
-            <p className="text-xl text-white/50 mb-12 max-w-xl leading-relaxed font-medium">
+            <p className="text-xl text-white mb-12 max-w-xl leading-relaxed font-medium">
               We deploy <span className="text-white font-bold">Autonomous Agents</span> that reason, plan, and execute complex workflows at scale. Engineered for reliability and vertical performance.
             </p>
 
@@ -105,9 +91,9 @@ export function Hero() {
                 <div key={stat.label} className="group cursor-default">
                   <div className="flex items-center gap-2 mb-2">
                     <stat.icon className="w-3.5 h-3.5 text-brand/40 group-hover:text-brand transition-colors" />
-                    <span className="text-[9px] text-white/20 uppercase font-black tracking-widest leading-none">{stat.label}</span>
+                    <span className="text-[9px] text-white uppercase font-black tracking-widest leading-none">{stat.label}</span>
                   </div>
-                  <div className="text-2xl font-black font-heading tracking-tighter group-hover:text-white transition-colors">{stat.value}</div>
+                  <div className="text-2xl font-black font-heading tracking-tighter text-white transition-colors">{stat.value}</div>
                 </div>
               ))}
             </div>
@@ -131,7 +117,7 @@ export function Hero() {
 
               <div className="mb-10 relative">
                 <div className="text-[10px] font-black text-brand uppercase tracking-widest mb-3">Onboarding Protocol</div>
-                <h3 className="text-[#1A1A1A] text-4xl font-heading font-black mb-3 tracking-tight leading-none">AI Strategic <br />Consultation</h3>
+                <h3 className="text-[#1A1A1A] text-3xl lg:text-4xl font-heading font-black mb-3 tracking-tight leading-none">Get Your Free <br />AI Consultation</h3>
                 <p className="text-[#1A1A1A]/50 font-bold text-sm">Secure your slot with our architecture team</p>
               </div>
 
@@ -205,11 +191,11 @@ export function Hero() {
           <div className="flex items-center gap-8">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
-              <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">Network Live</span>
+              <span className="text-[9px] font-black text-white uppercase tracking-widest">Network Live</span>
             </div>
             <div className="hidden sm:flex items-center gap-4">
               {['AWS-01: ACTIVE', 'GPT-4: 98ms', 'NODE-X: STABLE'].map((node) => (
-                <div key={node} className="text-[8px] font-mono text-white/20 uppercase tracking-[0.2em] px-2 py-1 border border-white/5 rounded bg-white/[0.02]">
+                <div key={node} className="text-[8px] font-mono text-white/40 uppercase tracking-[0.2em] px-2 py-1 border border-white/5 rounded bg-white/[0.02]">
                   {node}
                 </div>
               ))}
@@ -217,12 +203,12 @@ export function Hero() {
           </div>
           <div className="flex items-center gap-12">
             <div className="flex flex-col items-end">
-              <span className="text-[8px] font-black text-white/20 uppercase tracking-widest mb-1">Inference Rate</span>
+              <span className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Inference Rate</span>
               <span className="text-xs font-mono text-brand font-bold">14.2K t/s</span>
             </div>
             <div className="w-[1px] h-6 bg-white/10 hidden md:block" />
             <div className="flex flex-col items-end">
-              <span className="text-[8px] font-black text-white/20 uppercase tracking-widest mb-1">Active Agents</span>
+              <span className="text-[8px] font-black text-white/40 uppercase tracking-widest mb-1">Active Agents</span>
               <span className="text-xs font-mono text-white font-bold">412,094</span>
             </div>
           </div>
