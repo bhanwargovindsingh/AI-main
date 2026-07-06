@@ -1,0 +1,6 @@
+{
+  "name": "Dotsquares AI",
+  "description": "A professional, AI-powered landing page for Dotsquares, showcasing AI/ML services, engineering capabilities, and case studies with a modern dark theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
