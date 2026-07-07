@@ -6,6 +6,21 @@ import { CodeBackground, NeuralMesh, TechGrid, GlowingOrb, FloatingIcons, DataFl
 export function Hero() {
   return (
     <section className="relative pt-40 pb-32 overflow-hidden min-h-screen bg-bg-dark">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40 scale-105"
+        >
+          <source src="https://cdn.pixabay.com/video/2023/10/20/185790-876359573_large.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-[#050505]/40 to-[#050505] z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-[#050505] z-10" />
+      </div>
+
       <TechGrid />
       <CodeBackground />
       <NeuralMesh />
@@ -13,9 +28,9 @@ export function Hero() {
       <DataFlowLines />
       
       {/* Decorative Orbs */}
-      <GlowingOrb className="top-[10%] -left-[10%] w-[50%] h-[50%] bg-brand/10" />
-      <GlowingOrb className="bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-brand/5" />
-      <GlowingOrb className="top-[40%] right-[20%] w-[30%] h-[30%] bg-brand/5" />
+      <GlowingOrb className="top-[10%] -left-[10%] w-[50%] h-[50%] bg-brand/10 z-20" />
+      <GlowingOrb className="bottom-[10%] -right-[10%] w-[60%] h-[60%] bg-brand/5 z-20" />
+      <GlowingOrb className="top-[40%] right-[20%] w-[30%] h-[30%] bg-brand/5 z-20" />
 
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

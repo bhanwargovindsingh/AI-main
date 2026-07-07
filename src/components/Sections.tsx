@@ -438,23 +438,20 @@ export function CapabilitiesSection() {
                 viewport={{ once: true }}
                 className="group relative"
               >
-                <div className="h-full bg-gray-50 border border-gray-100 p-8 rounded-[2rem] flex flex-col items-center text-center hover:bg-white hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/5 transition-all duration-500 group-hover:-translate-y-2">
+                <div className="h-full bg-gray-50 border border-gray-100 p-8 rounded-[2rem] flex flex-col items-center text-center hover:bg-white hover:border-brand/20 hover:shadow-2xl hover:shadow-brand/5 transition-all duration-500 group-hover:-translate-y-2 relative overflow-hidden">
                   <div className={cn(
                     "w-16 h-16 rounded-2xl bg-white flex items-center justify-center mb-8 border border-gray-100 group-hover:border-brand/20 transition-all duration-500 shadow-sm group-hover:shadow-brand/10",
                     cap.color
                   )}>
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h4 className="text-lg font-black font-heading text-gray-900 leading-tight mb-4 tracking-tight group-hover:text-brand transition-colors">
+                  <h4 className="text-lg font-black font-heading text-gray-900 leading-tight mb-0 tracking-tight group-hover:text-brand transition-colors">
                     {cap.name}
                   </h4>
-                  <div className="mt-auto pt-4 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Icons.ArrowUpRight className="w-5 h-5 text-brand" />
-                  </div>
+                  
+                  {/* Decorative scanning line on hover */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-brand group-hover:w-full transition-all duration-500 rounded-full" />
                 </div>
-                
-                {/* Decorative scanning line on hover */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-brand group-hover:w-full transition-all duration-500 rounded-full" />
               </motion.div>
             );
           })}
